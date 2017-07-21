@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sys/time.h>
 #include "Lagrange.h"
+
 using namespace std;
 
 long long convert(timeval tp) {
@@ -26,8 +27,8 @@ int main() {
     long long ms = convert(tp);
     lagrange->solve();
     gettimeofday(&tp, NULL);
-    cout << "Done." << endl;
-    cout << "Time Elapsed: " << convert(tp) - ms << " millis";
+    cout << "\nDone." << endl;
+    cout << "Time Elapsed: " << convert(tp) - ms << " millis\n";
     return 0;
 }
 

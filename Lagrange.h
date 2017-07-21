@@ -19,6 +19,7 @@ class Lagrange {
     int maxTerms;
 private:
     bool findSumRB(unsigned int num, int maxTerms);
+    unsigned int onePercentStp;
 public:
     Lagrange(int start, int stop, int maxTerms);
     void setPrintInterval(unsigned int i);

@@ -5,6 +5,7 @@
 
 #include "Lagrange.h"
 #include <cmath>
+#include <iostream>
 
 /**
  * Sets the interval in which a output is produced.
@@ -24,6 +25,7 @@ Lagrange::Lagrange(int start, int stop, int maxTerms) {
     this->start = start;
     this->stop = stop;
     this->maxTerms = maxTerms;
+    this->onePercentStp = (unsigned int) ((stop - start) / 100);
     this->solutions = new int[maxTerms];
     this->hashMap = new int[stop + 1];
     this->results = new str[stop - start + 1];
@@ -63,7 +65,15 @@ bool Lagrange::findSumRB(unsigned int num, int maxTerms) {
 std::string *Lagrange::solve() {
     for (int q = start; q <= stop; q++) {
         this->results[q - start] = findSumRB((unsigned int) q, maxTerms);
-        if (!debugPrint || q % debugPrint != 0) continue;
+        if (!debugPrint || q % debugPrint != 0) {
+            if (q % onePercentStp == 0) {
+                std::cout << "\033[1;31m" << "\r"
+                          << (unsigned int) (q / (float) (stop - start) * 100)
+                          << "%\033[0m completed. "
+                          << std::flush;
+            }
+            continue;
+        }
         printf("%i -> ", q);
         for (int i = 0; i < 4; i++) {
             printf("[%i]", solutions[i]);
